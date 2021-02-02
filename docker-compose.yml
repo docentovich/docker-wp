@@ -9,9 +9,9 @@ services:
     ports:
       - 8000:80
     links:
-      - bassdb
+      - db
     environment:
-      WORDPRESS_DB_HOST: bassdb:3306
+      WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: ${MYSQL_USER}
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
@@ -21,12 +21,12 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
-      - bassdb
+      - db
     ports:
       - 8080:80
     env_file:
       - ./.env
-  bassdb:
+  db:
     image: mariadb
     env_file: ./.env
     volumes:
