@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 8000:80
+    links:
+      - bassdb
+    environment:
+      WORDPRESS_DB_HOST: bassdb:3306
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+    volumes:
+      - ./wordpress:/var/www/html
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - bassdb
+    ports:
+      - 8080:80
+    env_file:
+      - ./.env
+  bassdb:
+    image: mariadb
+    env_file: ./.env
+    volumes:
+      - ./db:/var/lib/mysql
