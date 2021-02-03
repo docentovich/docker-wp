@@ -1,5 +1,7 @@
 FROM php:7.4-apache
 
+COPY apache-default.conf /etc/apache2/sites-enabled/000-default.conf
+
 RUN a2enmod rewrite
 
 # install the PHP extensions we need
