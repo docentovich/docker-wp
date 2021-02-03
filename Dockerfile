@@ -1,6 +1,9 @@
 FROM php:7.4-apache
 
 COPY apache-default.conf /etc/apache2/sites-enabled/000-default.conf
+# After plugin is installed better to use cope instead of add volume
+# till developing on windows in performance issue
+#COPY ./wordpress /var/www/html
 
 RUN a2enmod rewrite
 
